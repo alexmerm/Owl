@@ -53,6 +53,25 @@ if (activateOnStartup) {
     setOwl(owlMode);
 }
 
+
+
+//check for dark mode
+if (window.matchMedia && 
+    window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    debugLog(`Startup: Detected Dark Mode`);
+    setOwl(true);
+}
+
+window.matchMedia('(prefers-color-scheme: dark)')
+      .addEventListener('change', event => {
+  if (event.matches) {
+    debugLog(`Detected Change to Dark Mode`);
+    setOwl(true);
+  } else {
+    debugLog(`Detected Change to Light Mode`);
+    setOwl(false);  }
+})
+
 owlButton.onClicked.addListener((tab) => {
     owlMode = !owlMode;
     setOwl(owlMode);
